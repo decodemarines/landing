@@ -1,23 +1,25 @@
 import React from 'react';
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useRef ,useState} from 'react'
 import * as THREE from 'three'
 
 function Box() { 
 	const ref = useRef()
-	// useFrame((state) => { 
-	// 	ref.current.position.x = Math.sin(state.clock.elapsedTime) * 2
-	// 	ref.current.rotation.y = Math.sin(state.clock.elapsedTime) * 2
-	// 	ref.current.position.y = Math.sin(state.clock.elapsedTime) * 2
-	// })
-	const [clicked,setClicked] = useState(false)
+	const { viewport} = useThree()
+	
 
 	useFrame((state) => { 
-        ref.current.position.z = THREE.MathUtils.lerp(ref.current.position.z, clicked ? 1 : 0, 0.1)
+		ref.current.position.y += 0.03 // speed to up
+		// if (ref.current.position.y > 2) { // falls back when reaches 2 to -2
+		// 	ref.current.position.y = -2
+		// }
+		if (ref.current.position.y > viewport.height / 1.5) { // falls back when reaches 2 to -2
+			ref.current.position.y = -viewport.height / 1.5
+		}
 	})
 
 	return (
-		<mesh ref={ref} onClick={ ()=>setClicked(!clicked)}>
+		<mesh ref={ref} >
 			<boxGeometry />
 	 		<meshBasicMaterial color='aqua' /> 
 	   </mesh> 
