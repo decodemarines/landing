@@ -19,3 +19,10 @@ https://github.com/pmndrs/gltfjsx
 https://gltf.report/
 
 https://sketchfab.com/
+
+
+<mesh ref={ref} position={ [0, 0, clicked ? 1 : 0]} onClick={ ()=>setClicked(!clicked)}>
+ or
+ useFrame((state) => { 
+        ref.current.position.z = THREE.MathUtils.lerp(ref.current.position.z, clicked ? 1 : 0)
+	})
