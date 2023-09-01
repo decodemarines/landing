@@ -4,9 +4,10 @@ import { useRef} from 'react'
 
 function Box() { 
 	const ref = useRef()
-	useFrame(() => { 
-		ref.current.position.x += 0.02
-		ref.current.rotation.y += 0.02
+	useFrame((state) => { 
+		ref.current.position.x = Math.sin(state.clock.elapsedTime) * 2
+		ref.current.rotation.y = Math.sin(state.clock.elapsedTime) * 2
+		ref.current.position.y = Math.sin(state.clock.elapsedTime) * 2
 	})
 
 	return (
