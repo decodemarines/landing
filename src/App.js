@@ -6,15 +6,17 @@ import * as THREE from 'three'
 function Box() { 
 	const ref = useRef()
 	const { viewport} = useThree()
-	
+	const [data] = useState({
+		// x: 0,
+		x: THREE.MathUtils.randFloatSpread(viewport.width), // 6 :from -3 to 3
+		y: 0,
+	})
 
 	useFrame((state) => { 
-		ref.current.position.y += 0.03 // speed to up
-		// if (ref.current.position.y > 2) { // falls back when reaches 2 to -2
-		// 	ref.current.position.y = -2
-		// }
-		if (ref.current.position.y > viewport.height / 1.5) { // falls back when reaches 2 to -2
-			ref.current.position.y = -viewport.height / 1.5
+		ref.current.position.set(0, (data.y += 0.3), 0)
+		
+		if (data.y > viewport.height / 1.5) { // falls back when reaches 2 to -2
+			data.y = -viewport.height / 1.5
 		}
 	})
 
@@ -29,7 +31,10 @@ export default function App() {
 	// return "hello"
 	 return (
 	 	<Canvas>
-           < Box />
+			 < Box />
+			 < Box />
+			 < Box />
+			
 	    </Canvas>
 	 )
 }
